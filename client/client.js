@@ -5,34 +5,29 @@ config = {'host':"ws://barmania.mine.nu",
 	 	  'port':8081
 		 }
 
-client = function()
+function SocketClient()
 {	
 	var socket = null;
 	var callbackcue = [];
 	var url = config.host+":"+config.port;
 	var messageId = 1; ///every message send to server is attached to an id to identify the belonging callback. 
 						///sending messages to the server is not parallelerized and thus we need an identification
-	
-	init = function()
-	{
-		messageId = 1;
-	}
-	
+		
 	/**
 	 * sends a command to the websocket server
 	 * the callback
 	 */
-	send =  function(command, params)
+	this.send =  function(command, params)
 	{
 		socket.send(JSON.stringify({'callbackid':messageId,'command':command,'data':params}));
 		messageId++;
 	}
 	
-	open = function()
+	this.open = function()
 	{
-		 socket = new WebSocket(this.url);
+		 socket = new WebSocket(url);
 	    
-		 socket.onmessage = this.getProxy(function(e) {
+		 socket.onmessage = function(e) {
 				 
 			 try{
 				 var json = JSON.parse(e.data);
@@ -61,10 +56,10 @@ client = function()
 				}
 			 } 
 			 
-	     });
+	     };
 	},
 	
-	close = function()
+	this.close = function()
 	{
 		//TODO
 	}
