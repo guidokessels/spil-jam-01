@@ -3,6 +3,9 @@ require('./serverclient.js');
 
 function main()
 {
+	var games = []; //available games
+	var players []; //all players
+	
 	init =  function()
 	{
 		var WebSocketServer = require('ws').Server;
@@ -13,13 +16,19 @@ function main()
 		this.wss.on('connection', function(ws) {
 			
 			console.log("new client");
-			var a = new ServerClient();
 			
+			var client = new ServerClient();
+			
+			players.push(client);
 		});
+	},
+	
+	notifyGamePlayers = function()
+	{
+		//loop over all players in game and send some command
+		//with player.sendData(data);	
 	}
 	
 	init();
 }
-
-
 main();
