@@ -43,7 +43,7 @@ client = function()
 			 }
 			 
 			 //look for callback in cue
-			 if (json.callbackid && this.callbackcue['|'+json.callbackid])
+			 if (json.callbackid && callbackcue['|'+json.callbackid])
 			 {
 				var cb = callbackcue['|'+json.callbackid];
 				delete callbackcue['|'+json.callbackid];
@@ -62,5 +62,10 @@ client = function()
 			 } 
 			 
 	     });
+	},
+	
+	close = function()
+	{
+		//TODO
 	}
 }
