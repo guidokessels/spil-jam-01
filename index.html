@@ -5,12 +5,33 @@
 
 	<link href="maze.css" rel="stylesheet" type="text/css" />
 	<script src="mazeGenerator.js" type="text/javascript"></script>
+	<script src="game.js" type="text/javascript"></script>
 
 </head>
-<body>
+<body style="margin:0; padding:0;">
 
-	<div id="container"></div>
+	<div id="container">
+	
+	</div>
+	
+	<canvas id="maze" width="400" height="400" style="margin:auto; background-color:black;"></canvas> 
 
 
 </body>
 </html>
+
+<script>
+
+	var cellWidth = 20;
+	var cellHeight = 20;
+
+player1 = {x:cellWidth/2,y:cellHeight/2,color:'ff0000'};
+player2 = {x:333,y:200,color:'ff0000'};
+
+playerGraphic = {w:cellWidth/2,h:cellHeight/2};
+
+var players = [player1,player2];
+
+main(player1);
+
+</script>
