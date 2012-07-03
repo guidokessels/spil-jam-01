@@ -20,15 +20,15 @@ ServerClient = function(socket)
 		 });
 	
 		 socket.on('message', function(message) {
-			 this.processMessage(message);
+			 processMessage(message);
 	   	 });
 		 
 		 socket.on('close', function(message) {
-			 playout.removeChannelListener(this);
+			//remove from server
 	   	 });
 	},
 	
-	processMessage = function(json)
+	processMessage = function(message)
 	{
 		log('process message',message);
 		try
@@ -79,11 +79,11 @@ ServerClient = function(socket)
 			break;
 			
 		}
-		
-		log = function(m)
-		{
-			console.log(m, name)	
-		}
+	}
+	
+	log = function(m)
+	{
+		console.log(m, name)	
 	}
 	
 	registerEvents();

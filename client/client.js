@@ -23,6 +23,11 @@ function SocketClient()
 		messageId++;
 	}
 	
+	this.getSocket = function()
+	{
+		return socket;
+	}
+	
 	this.open = function()
 	{
 		 socket = new WebSocket(url);
