@@ -5,18 +5,18 @@ config = {'host':"ws://barmania.mine.nu",
 	 	  'port':8080
 		 }
 
+
+//Simple wrapper for websocket behaviour
+// use open() to start a connection
+// 
+//
 function SocketClient()
 {	
 	var socket = null;
 	var callbackcue = [];
 	var url = config.host+":"+config.port;
-	var messageId = 1; ///every message send to server is attached to an id to identify the belonging callback. 
-						///sending messages to the server is not parallelerized and thus we need an identification
+	var messageId = 1;
 		
-	/**
-	 * sends a command to the websocket server
-	 * the callback
-	 */
 	this.send =  function(command, params)
 	{
 		var packed = JSON.stringify({'callbackid':messageId,'command':command,'data':params});
@@ -30,40 +30,40 @@ function SocketClient()
 		return socket;
 	}
 	
-	this.open = function()
+	this.openSocket = function()
 	{
 		 socket = new WebSocket(url);
 	    
-		 socket.onmessage = function(e) {
+		 socket.onmessage = function(e){
 				 
-			 try{
+			 try
+			 {
 				 var json = JSON.parse(e.data);
 			 }
 			 catch(e)
 			 {
 				return console.log('invalid data received ',e);
 			 }
-			 
-			 //look for callback in cue
-			 if (json.callbackid && callbackcue['|'+json.callbackid])
-			 {
-				var cb = callbackcue['|'+json.callbackid];
-				delete callbackcue['|'+json.callbackid];
-				cb();
-			 }
-			 
-			 
+			 			 
 			 if (json.command)
 			 {
 				switch (json.command)
 				{
 					case  'receiveGames':
 						console.log('games received ',json);
-						//do something
+						//TODO: add event functionality   /// Event.publish("gamesReceived",json.data);
+					break;
+					case  'gameJoined':
+						  //when succesfully joined game 
+					break;
+					case  'playerUpdates':
+						  ///all player movement updates here
+					break;
+					case  'gameEnds':
+						  ///when game ends
 					break;
 				}
 			 } 
-			 
 	     };
 	},
 	

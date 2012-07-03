@@ -42,7 +42,7 @@ main(player1);
 
 ///websocket testing
 var wsclient = new SocketClient();
-wsclient.open();
+wsclient.openSocket();
 wsclient.getSocket().onopen = function(e){
     
 	console.log('websocket openened',e)
