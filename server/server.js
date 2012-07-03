@@ -4,7 +4,7 @@ require('./serverclient.js');
 function main()
 {
 	var games = []; //available games
-	var players []; //all players
+	var players = []; //all players
 	
 	init =  function()
 	{
