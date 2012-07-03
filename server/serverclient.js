@@ -1,6 +1,7 @@
-ServerClient = function(socket)
+ServerClient = function(server,socket)
 {
 	var socket = socket;
+	var server = server;
 	var activeGame = null;
 	var name = null;
 	
@@ -30,7 +31,7 @@ ServerClient = function(socket)
 	
 	processMessage = function(message)
 	{
-		log('process message',message);
+		console.log('process message',message);
 		try
 		{
 			var json = JSON.parse(message);
@@ -43,15 +44,18 @@ ServerClient = function(socket)
 		var command = json.command;
 		var data = json.data
 		
-		if (!method)
+		if (!command)
 		{
 			return console.log("no command and or data given");
 		}
 		
-		switch (method)
+		switch (command)
 		{
 			case "getGames":
 				log('get games');
+				
+				this.sendData({'command':'receiveGames',"data":{'games':['a game','another game']}});
+				
 			break;
 		
 			case "createGame":		
@@ -84,6 +88,12 @@ ServerClient = function(socket)
 	log = function(m)
 	{
 		console.log(m, name)	
+	}
+	
+	sendData = function(data)
+	{
+		console.log('send data ',data);
+		socket.send(JSON.stringify(data));
 	}
 	
 	registerEvents();

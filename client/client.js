@@ -19,7 +19,9 @@ function SocketClient()
 	 */
 	this.send =  function(command, params)
 	{
-		socket.send(JSON.stringify({'callbackid':messageId,'command':command,'data':params}));
+		var packed = JSON.stringify({'callbackid':messageId,'command':command,'data':params});
+		console.log('send ',packed);
+		socket.send(packed);
 		messageId++;
 	}
 	
@@ -55,7 +57,8 @@ function SocketClient()
 			 {
 				switch (json.command)
 				{
-					case  'bladiebla':
+					case  'receiveGames':
+						console.log('games received ',json);
 						//do something
 					break;
 				}

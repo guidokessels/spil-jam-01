@@ -17,7 +17,7 @@ function main()
 			
 			console.log("new client");
 			
-			var client = new ServerClient(ws);
+			var client = new ServerClient(this,ws);
 			
 			players.push(client);
 		});
