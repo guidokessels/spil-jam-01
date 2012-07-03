@@ -26,7 +26,7 @@ ServerClient = function(socket)
 	   	 });
 	},
 	
-	processCommand = function(json)
+	processMessage = function(json)
 	{
 		console.log('process message',message);
 		try
