@@ -1,6 +1,8 @@
 ServerClient = function(socket)
 {
 	var socket = socket;
+	var activeGame = null;
+	var name = null;
 	
 	init = function()
 	{
@@ -10,11 +12,11 @@ ServerClient = function(socket)
 	registerEvents = function()
 	{
 		 socket.on('ping', function(message) {
-			 console.log('ping');
+			 log('ping');
 		 });
 		 
 		 socket.on('pong', function(message) {
-			 console.log('pong');
+			 log('pong');
 		 });
 	
 		 socket.on('message', function(message) {
@@ -28,7 +30,7 @@ ServerClient = function(socket)
 	
 	processMessage = function(json)
 	{
-		console.log('process message',message);
+		log('process message',message);
 		try
 		{
 			var json = JSON.parse(message);
@@ -49,11 +51,11 @@ ServerClient = function(socket)
 		switch (method)
 		{
 			case "getGames":
-				
+				log('get games');
 			break;
 		
 			case "createGame":		
-				//this.sendData(//some ok message);		
+			
 			break;
 			
 			case "joinGame":
@@ -76,7 +78,12 @@ ServerClient = function(socket)
 			
 			break;
 			
-		}		
+		}
+		
+		log = function(m)
+		{
+			console.log(m, name)	
+		}
 	}
 	
 	registerEvents();
