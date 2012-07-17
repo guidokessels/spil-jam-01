@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <style type="text/css">
+            .row { clear: left; }
+            .cellMask { border: 1px solid black; width: 20px; height: 20px; float: left; }
+            .directionN { border-top-color: white; }
+            .directionS { border-bottom-color: white; }
+            .directionW { border-left-color: white; }
+            .directionE { border-right-color: white; }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="maze-growing-tree.js"></script>
+        <script type="text/javascript">
+            var grid = generateGrid(30,30);
+            var body = document.getElementsByTagName('body')[0];
+            var maze = document.createElement('div');
+            maze.className = 'maze';
+
+            for (var i = 0, n = grid.length; i < n; i++) {
+
+                var row = document.createElement('div');
+                row.className = 'row';
+                
+                for (var l = 0, m = grid[i].length; l < m; l++) {
+                    
+                    var cell = document.createElement('div');
+                    cell.className = 'cellMask';
+
+                    var directions = {
+                        'N': N,
+                        'S': S,
+                        'E': E,
+                        'W': W
+                    };
+
+                    for (var name in directions) {
+                        var direction = directions[name];
+                        if (direction === (grid[i][l] & direction)) {
+                            cell.className = cell.className + ' direction' + name;
+                        }
+                    }
+
+                    row.appendChild(cell);
+                }
+
+                maze.appendChild(row);
+            }
+
+            body.appendChild(maze);
+        </script>
+    </body>
+</html>
