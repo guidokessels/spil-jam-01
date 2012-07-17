@@ -1,5 +1,6 @@
 require('./config.js');
 require('./serverclient.js');
+require('./game.js');
 
 function main()
 {
@@ -12,6 +13,8 @@ function main()
 		this.wss = new WebSocketServer({port:config.port,host:config.host});
 		
 		console.log('server started. Waiting for clients');
+		
+		var game = new Game();
 		
 		this.wss.on('connection', function(ws) {
 			

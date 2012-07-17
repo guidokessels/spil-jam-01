@@ -12,11 +12,11 @@
     <body>
         <script type="text/javascript" src="maze-growing-tree.js"></script>
         <script type="text/javascript">
-            var grid = generateGrid(30,30);
+            var grid = Maze.generateMaze(10,10);
             var body = document.getElementsByTagName('body')[0];
             var maze = document.createElement('div');
             maze.className = 'maze';
-
+console.log(grid)
             for (var i = 0, n = grid.length; i < n; i++) {
 
                 var row = document.createElement('div');
@@ -27,12 +27,8 @@
                     var cell = document.createElement('div');
                     cell.className = 'cellMask';
 
-                    var directions = {
-                        'N': N,
-                        'S': S,
-                        'E': E,
-                        'W': W
-                    };
+                    var directions = Maze.getDirections();
+                    
 
                     for (var name in directions) {
                         var direction = directions[name];
