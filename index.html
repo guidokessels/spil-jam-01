@@ -40,12 +40,8 @@ var players = [player1,player2];
 main(player1);  
 
 ///websocket testing
-<<<<<<< HEAD
 var wsclient = new Client(config.host, config.port);
 
-=======
-var wsclient = new SocketClient();
->>>>>>> dc045db944c415aac8755a114f19196b095cd02c
 wsclient.openSocket();
 wsclient.getSocket().onopen = function(e){
     
