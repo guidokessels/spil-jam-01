@@ -7,9 +7,9 @@ function Client(host, port)
         
 	var url = host+":" + port;
         
-        var executeCommand = function(command, data) {
-            
-            switch (command)
+        var executeCommand = function(comm, data) {
+            console.log(COMMAND);
+            switch (comm)
             {
                 case  COMMAND.SERVER.LOBBY.LIST_TO_CLIENT:
                     console.log('games received ', json);
@@ -17,7 +17,7 @@ function Client(host, port)
                 case  COMMAND.SERVER.GAME.JOIN_CLIENT:
                     //when succesfully joined game 
                 break;
-                case  COMMAND.SERVER.GAME.SEND.STATUS:
+                case  COMMAND.SERVER.GAME.SEND_STATUS:
                     //all player movement updates here
                 break;
                 case  COMMAND.SERVER.GAME.END:
@@ -44,6 +44,10 @@ function Client(host, port)
                 executeCommand(json.command, json.data);
             } 
         };
+        
+        var login = function() {
+            this.send(COMMAND.CLIENT.LOBBY.LIST, {'foo':'bar'});
+        }
 		
 	this.send =  function(command, params)
 	{
@@ -66,7 +70,16 @@ function Client(host, port)
 	this.openSocket = function()
 	{
             socket = new WebSocket(url);
+            
 	    socket.onmessage = messageHandler;
+            socket.onopen    = login;
+            
+            socket.onclose   = function(e) {
+                console.log("Connection closed by client.");
+            }
+            socket.onerror   = function(e) {
+                console.log("Error occured between clien%server communication", e);
+            }
             
             return this;
 	},

@@ -5,12 +5,12 @@
 
 	<link href="maze.css" rel="stylesheet" type="text/css" />
         <script src="config.js" type="text/javascript"></script>
+        <script src="library/Command.js" type="text/javascript"></script>
 	<script src="mazeGenerator.js" type="text/javascript"></script>
 	<script src="game.js" type="text/javascript"></script>
 	<script src="client/websocket/swfobject.js" type="text/javascript"></script>
 	<script src="client/websocket/web_socket.js" type="text/javascript"></script>
         <script src="library/Client.js" type="text/javascript"></script>
-	<script src="client/client.js" type="text/javascript"></script>
 
 </head>
 <body style="margin:0; padding:0;">
@@ -37,20 +37,20 @@ playerGraphic = {w:cellWidth/2,h:cellHeight/2};
 
 var players = [player1,player2];
 
-main(player1);
-
-
+main(player1);  
 
 ///websocket testing
-var wsclient = new Client();
+var wsclient = new Client(config.host, config.port);
+
 wsclient.openSocket();
 wsclient.getSocket().onopen = function(e){
     
-	console.log('websocket openened',e)
-	
-	wsclient.send('getGames',{'foo':'bar'});
-	  
+    console.log('websocket openened',e)
+
+    wsclient.send('getGames',{'foo':'bar'});
+
 };
+        
 wsclient.getSocket().onclose = function(e) {
 	console.log('disconnected',e)
 };
