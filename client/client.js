@@ -1,20 +1,18 @@
 WEB_SOCKET_SWF_LOCATION = "websocket/WebSocketMain.swf";
 WEB_SOCKET_DEBUG = true;
 
-config = {'host':"ws://barmania.mine.nu",
-	 	  'port':8080
-		 }
-
 
 //Simple wrapper for websocket behaviour
 // use open() to start a connection
 // 
 //
-function SocketClient()
+function Client(host, port)
 {	
 	var socket = null;
+        
 	var callbackcue = [];
-	var url = config.host+":"+config.port;
+        
+	var url = host+":" + port;
 	var messageId = 1;
 		
 	this.send =  function(command, params)

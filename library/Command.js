@@ -29,7 +29,8 @@ var COMMAND = {
             JOIN_CLIENT: "@game.join",
             EXIT_CLIENT: "@game.exit",
             HOST:        "@game.host",
-            SEND_STATUS: "@game.update_client_status"
+            SEND_STATUS: "@game.update_client_status",
+            END:         "@game.end"
         }
     }
 }
