@@ -7,7 +7,7 @@
         <script src="config.js" type="text/javascript"></script>
         <script src="library/Command.js" type="text/javascript"></script>
 	<script src="mazeGenerator.js" type="text/javascript"></script>
-	<script src="game.js" type="text/javascript"></script>
+	<script src="game.js" type="text/javascript"></script>	
 	<script src="client/websocket/swfobject.js" type="text/javascript"></script>
 	<script src="client/websocket/web_socket.js" type="text/javascript"></script>
         <script src="library/Client.js" type="text/javascript"></script>
@@ -40,8 +40,12 @@ var players = [player1,player2];
 main(player1);  
 
 ///websocket testing
+<<<<<<< HEAD
 var wsclient = new Client(config.host, config.port);
 
+=======
+var wsclient = new SocketClient();
+>>>>>>> dc045db944c415aac8755a114f19196b095cd02c
 wsclient.openSocket();
 wsclient.getSocket().onopen = function(e){
     

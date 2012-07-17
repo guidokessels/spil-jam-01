@@ -1,6 +1,7 @@
 require('./config.js');
 require('./serverclient.js');
 require('./game.js');
+require('../library/Command.js');
 
 function main()
 {
