@@ -1,5 +1,15 @@
 <html>
     <head>
+        <style type="text/css">
+            .row { clear: left; }
+            .cellMask { border: 1px solid black; width: 10px; height: 10px; float: left; }
+            .directionN { border-top-color: white; }
+            .directionS { border-bottom-color: white; }
+            .directionW { border-left-color: white; }
+            .directionE { border-right-color: white; }
+        </style>
+    </head>
+    <body>
         <script type="text/javascript" src="maze-growing-tree.js"></script>
         <script type="text/javascript">
             var grid = generateGrid(10,10);
@@ -39,15 +49,5 @@
 
             body.appendChild(maze);
         </script>
-        <style type="text/css">
-            .row { clear: left; }
-            .cellMask { border: 1px solid black; width: 10px; height: 10px; float: left; }
-            .directionN { border-top-color: white; }
-            .directionS { border-bottom-color: white; }
-            .directionW { border-left-color: white; }
-            .directionE { border-right-color: white; }
-        </style>
-    </head>
-    <body>
     </body>
 </html>
