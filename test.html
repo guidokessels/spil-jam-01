@@ -3,13 +3,14 @@
         <script type="text/javascript" src="maze-growing-tree.js"></script>
         <script type="text/javascript">
             var grid = generateGrid(10,10);
-            var body = document.getElementByName('body')[0];
+            var body = document.getElementsByTagName('body')[0];
             var maze = document.createElement('div');
             maze.className = 'maze';
 
             for (var i = 0, n = grid.length; i < n; i++) {
 
                 var row = document.createElement('div');
+                row.className = 'row';
                 
                 for (var l = 0, m = grid[i].length; l < m; l++) {
                     
@@ -39,7 +40,8 @@
             body.appendChild(maze);
         </script>
         <style type="text/css">
-            .cellMask { border: 1px solid black; }
+            .row { clear: left; }
+            .cellMask { border: 1px solid black; width: 10px; height: 10px; float: left; }
             .directionN { border-top-color: white; }
             .directionS { border-bottom-color: white; }
             .directionW { border-left-color: white; }
