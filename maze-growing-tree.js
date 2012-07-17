@@ -81,3 +81,4 @@ function generateGrid(w, h) {
 
     return grid;
 }
+
