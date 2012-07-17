@@ -2,7 +2,7 @@
     <head>
         <style type="text/css">
             .row { clear: left; }
-            .cellMask { border: 1px solid black; width: 10px; height: 10px; float: left; }
+            .cellMask { border: 1px solid black; width: 20px; height: 20px; float: left; }
             .directionN { border-top-color: white; }
             .directionS { border-bottom-color: white; }
             .directionW { border-left-color: white; }
@@ -12,7 +12,7 @@
     <body>
         <script type="text/javascript" src="maze-growing-tree.js"></script>
         <script type="text/javascript">
-            var grid = generateGrid(10,10);
+            var grid = generateGrid(30,30);
             var body = document.getElementsByTagName('body')[0];
             var maze = document.createElement('div');
             maze.className = 'maze';
@@ -36,7 +36,7 @@
 
                     for (var name in directions) {
                         var direction = directions[name];
-                        if (grid[i][n] === (grid[i][n] & direction)) {
+                        if (direction === (grid[i][l] & direction)) {
                             cell.className = cell.className + ' direction' + name;
                         }
                     }
