@@ -6,15 +6,19 @@ require('../library/Command.js');
 function Main()
 {
 	var games = []; //available games
-	var players = []; //all players
+	var clients = []; //all clients
 	
-	this.notifyPlayers = function(data,sender)
+	var maze = null;
+	
+	this.cid = 1;
+	
+	this.notifyClients = function(data,sender)
 	{
-		for (var i =0,l = players.length; i < l; i++)
+		for (var i =0,l = clients.length; i < l; i++)
 		{
-			players[i].sendData({'command':'test',"data":data});
+			clients[i].sendData({'command':data.command,"data":data.data});
 		}
-		//loop over all players in game and send some command
+		//loop over all clients in game and send some command
 		//with player.sendData(data);	
 	};
 	
@@ -33,8 +37,11 @@ function Main()
 			console.log("new client");
 			
 			var client = new ServerClient(self,ws);
+			client.cid = self.cid;
 			
-			players.push(client);
+			clients.push(client);
+			
+			self.cid++;
 		});
 	};
 }

@@ -52,7 +52,12 @@
 
         for(var i = 0; i < height; i++) {
             for(var j = 0; j < width; j++) {
-                render += '<div class="cell open-' + maze[i][j] + '" style="top: ' + (i*cell_height) + 'px; left: ' + (j*cell_width) + 'px; height: ' + cell_height + 'px; width: ' + cell_width + 'px"></div>';
+                render += '<div class="cell open-' 
+		    + maze[i][j] + '" style="top: ' 
+		    + (i*cell_height) + 'px; left: ' 
+		    + (j*cell_width) + 'px; height: ' 
+		    + cell_height + 'px; width: ' 
+		    + cell_width + 'px"></div>';
             }
         }
 

@@ -47,7 +47,11 @@ function Client(host, port)
 			 {
 				switch (json.command)
 				{
-				
+				case 'mazeCreated':
+				    console.log('Maze received, redraw!!', json);
+				    MazeGenerator.maze = json.data.maze;
+				    MazeGenerator.render('#container');
+				    break;
 					case  'receiveGames':
 						console.log('games received ',json);
 						//TODO: add event functionality   /// Event.publish("gamesReceived",json.data);

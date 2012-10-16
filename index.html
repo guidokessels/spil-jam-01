@@ -24,7 +24,8 @@
 
 <div id=output></div>
 	<input type="text" onkeyup="sendtest(this)"></input>
-	
+	<input value="join game" onclick="joinGame(this)" type="button"/>
+
 
 </body>
 </html>
@@ -37,10 +38,17 @@
 
 
 
-
+ 
 
 
 <script>
+
+document.onkeydown = myKeyDownHandler;
+
+function myKeyDownHandler(e){
+  console.log(e.keyCode);
+}
+
 
 sendtest = function(n){
 	
@@ -48,6 +56,15 @@ sendtest = function(n){
 	wsclient.send('test',{'messsage':n.value});
 	
 }
+
+
+joinGame = function()
+{
+	wsclient.send('join',{});
+	console.log('join game')
+}
+
+
 
 
 
@@ -61,7 +78,7 @@ playerGraphic = {w:cellWidth/2,h:cellHeight/2};
 
 var players = [player1,player2];
 
-main(player1);  
+window.game = new main(player1);  
 
 ///websocket testing
 var wsclient = new Client(config.host, config.port);
@@ -70,7 +87,8 @@ wsclient.openSocket();
 wsclient.getSocket().onopen = function(e){
   	
 	
-	console.log('websocket openened',e)
+	console.log('websocket openened',e);
+wsclient.send('mazeCreated',{'maze':game.getMaze()});
 
   //  wsclient.send('getGames',{'foo':'bar'});
 

@@ -1,3 +1,4 @@
+//TODO Needs serious cleanup!!!
 main = function(player)
 {
 	var canvas = document.getElementById('maze');  
@@ -158,5 +159,9 @@ main = function(player)
 	
 	initMaze();
 	registerEvents();
-	gameloop();	
+	gameloop();
+
+    this.getMaze = function() {
+	return maze;
+    }
 }
