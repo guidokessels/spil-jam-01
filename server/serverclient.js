@@ -1,16 +1,17 @@
 ServerClient = function(server,socket)
 {
+	console.log(server);
 	var socket = socket;
 	var server = server;
 	var activeGame = null;
 	var name = null;
 	
-	init = function()
+	var init = function()
 	{
 		registerEvents();
 	}
 	
-	registerEvents = function()
+	var registerEvents = function()
 	{
 		 socket.on('ping', function(message) {
 			 log('ping');
@@ -21,15 +22,16 @@ ServerClient = function(server,socket)
 		 });
 	
 		 socket.on('message', function(message) {
+			 console.log('process message',message);
 			 processMessage(message);
 	   	 });
 		 
 		 socket.on('close', function(message) {
 			//remove from server
 	   	 });
-	},
+	};
 	
-	processMessage = function(message)
+	var processMessage = function(message)
 	{
 		console.log('process message',message);
 		try
@@ -51,10 +53,13 @@ ServerClient = function(server,socket)
 		
 		switch (command)
 		{
+			case "test":
+				console.log(server);
+				server.notifyPlayers(data,this);
+			break;
 			case "getGames":
-				log('get games');
 				
-				this.sendData({'command':'receiveGames',"data":{'games':['a game','another game']}});
+				//this.sendData({'command':'receiveGames',"data":{'games':['a game','another game']}});
 				
 			break;
 		
@@ -83,18 +88,26 @@ ServerClient = function(server,socket)
 			break;
 			
 		}
-	}
+	};
 	
-	log = function(m)
+	var log = function(m)
 	{
 		console.log(m, name)	
-	}
+	};
 	
-	sendData = function(data)
+	this.sendData = function(data)
 	{
-		console.log('send data ',data);
-		socket.send(JSON.stringify(data));
-	}
+		try
+		{
+			console.log('send data ',data);
+			socket.send(JSON.stringify(data));
+		}
+		catch(e)
+		{
+			//TODO
+			console.log('ik ben weg',e);
+		}
+	};
 	
 	registerEvents();
 

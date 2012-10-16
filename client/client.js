@@ -47,6 +47,7 @@ function Client(host, port)
 			 {
 				switch (json.command)
 				{
+				
 					case  'receiveGames':
 						console.log('games received ',json);
 						//TODO: add event functionality   /// Event.publish("gamesReceived",json.data);
@@ -59,6 +60,10 @@ function Client(host, port)
 					break;
 					case  'gameEnds':
 						  ///when game ends
+					break;
+					case 'test':
+						document.getElementById('output').innerHTML = e.data;
+						console.log('yessssss we have something');
 					break;
 				}
 			 } 
