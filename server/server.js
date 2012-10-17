@@ -22,6 +22,19 @@ function Main()
 		//with player.sendData(data);	
 	};
 	
+	this.getClientIds = function()
+	{
+		var ids = [];
+		
+		for (var i =0,l = clients.length; i < l; i++)
+		{
+			ids.push(clients[i].cid);
+		}
+		
+		return ids;
+	}
+	
+	
 	this.init =  function()
 	{
 		var WebSocketServer = require('ws').Server;

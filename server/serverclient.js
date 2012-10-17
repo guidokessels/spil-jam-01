@@ -58,7 +58,12 @@ ServerClient = function(server,socket)
 			case "join":
 				var packed = {};
 				packed.command = "clientJoined";
-				packed.data = {'clientId':self.cid+""};
+				packed.data = {'clientId':self.cid+"", 
+							   'clients':server.getClientIds()
+				};
+				
+				
+				
 				console.log('id',self.cid)
 				server.notifyClients(packed,this);				
 				break;
