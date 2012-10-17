@@ -1,8 +1,8 @@
-game = {};
+ev = {};
 var subs = [];
 var subsIndex = [];
 
-game.sub = function(to,cb){
+ev.sub = function(to,cb){
 	
 	var ci = subsIndex.indexOf(to);
 
@@ -16,7 +16,7 @@ game.sub = function(to,cb){
 	subs[ci].push({'to':to,'cb':cb});
 }
 
-game.pub = function(to,param){
+ev.pub = function(to,param){
 	var triggerIndex = subsIndex.indexOf(to);
 	
 	if (triggerIndex == -1) return null;
@@ -27,7 +27,7 @@ game.pub = function(to,param){
 	}
 }
 
-game.unsub = function(){
+ev.unsub = function(){
 	
 	//todo
 }

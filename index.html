@@ -65,7 +65,16 @@ joinGame = function()
 	console.log('join game')
 }
 
+console.log('hallo')
+ev.sub('socket.onClientJoined',function(e){
+	
+	console.log('client joined',e);
+})
 
+ev.sub('socket.onPositionUpdate',function(e){
+	
+	console.log('client position update',e);
+});
 
 
 
