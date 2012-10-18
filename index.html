@@ -65,16 +65,40 @@ joinGame = function()
 	console.log('join game')
 }
 
-console.log('hallo')
-ev.sub('socket.onClientJoined',function(e){
+///other users joined
+ev.sub('socket.onReceivePlayers',function(e){
 	
-	console.log('client joined',e);
-})
+	console.log('receive players',e);
+	//insert player in game object
+	//draw players
+	window.game.setOpponents(e.players)
+});
 
+//you are joined
+ev.sub('socket.onSelfJoined',function(e){
+	
+	//insert yourself into game object
+	console.log('self joined',e)
+	window.game.setPlayer(e.player)
+	
+});
+
+//position update for other clients 
 ev.sub('socket.onPositionUpdate',function(e){
 	
 	console.log('client position update',e);
+	//draw players
 });
+
+
+ev.sub('game.onPlayerPositionUpdate',function(e){
+	
+	console.log('send server player pos update',e)
+	wsclient.send('playerPositionUpdate',{'player':e});
+	
+});
+
+
 
 
 

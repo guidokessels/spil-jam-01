@@ -10,6 +10,32 @@ main = function(player)
 		RIGHT = 3,
 		DOWN  = 4;
 	
+	var players = [];
+	var player = null;
+	var opponents = [];
+	
+	this.setPlayer = function(p){
+		console.log('add player ',p.cid);
+		player = p;
+	}
+	
+	this.setOpponents = function(op)
+	{
+		opponents = op;
+	}
+	
+	this.removePlayer = function(p)
+	{
+		for (var j=0,jlen=players.length;j< jlen; j++)
+		{
+			if (p.cid == players[j].cid)
+			{
+				players.unshift(j,1);
+				break;
+			}
+		}
+	}
+	
 	initMaze = function()
 	{
 		maze = MazeGenerator.generate( 20,20 );
@@ -45,9 +71,15 @@ main = function(player)
 		if (new Date().getTime() - now > 100)
 		{	
 			direction = readInput();
-			if( checkCollision(direction) ) {
+						
+			//if( checkCollision(direction) ) {
 				movePlayer(direction);
-			}
+			
+				if (direction)
+				{
+					ev.pub('game.onPlayerPositionUpdate',player);
+				}
+			//}
 			now = +new Date();
 		}
 		
@@ -56,7 +88,7 @@ main = function(player)
 		
 		setTimeout(function(){
 			gameloop();			
-		},20);
+		},40);
 	}
 	
 	checkCollision = function( direction ) {
@@ -140,10 +172,9 @@ main = function(player)
 	drawPlayers = function()
 	{
 		var i;
-		for (i = 0, len=players.length; i < len; i++)
+		for (i = 0, len=opponents.length; i < len; i++)
 		{
-			var p = players[i];
-
+			var p = opponents[i];
 			c.fillStyle = p.color; 
 			c.beginPath();
 			c.arc(p.x, p.y, playerGraphic.w, 0, Math.PI*2, true); 

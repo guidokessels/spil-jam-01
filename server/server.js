@@ -12,6 +12,11 @@ function Main()
 	
 	this.cid = 1;
 	
+	this.notifyClient = function(client,data,sender)
+	{
+		
+	};
+	
 	this.notifyClients = function(data,sender)
 	{
 		for (var i =0,l = clients.length; i < l; i++)
@@ -42,6 +47,7 @@ function Main()
 		
 		console.log('server started. Waiting for clients');
 		
+		//create game
 		var game = new Game();
 		var self = this;
 		
@@ -50,6 +56,7 @@ function Main()
 			console.log("new client");
 			
 			var client = new ServerClient(self,ws);
+			client.game = game;
 			client.cid = self.cid;
 			
 			clients.push(client);

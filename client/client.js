@@ -42,24 +42,23 @@ function Client(host, port)
 			 {
 				return console.log('invalid data received ',e);
 			 }
-			 console.log('coming with datawww',json) 
+
 			 if (json.command)
 			 {
 				switch (json.command)
 				{
 					case 'mazeCreated':
-				    console.log('Maze received, redraw!!', json);
 				    MazeGenerator.maze = json.data.maze;
 				    MazeGenerator.render('#container');
 				    break;
 					case  'receiveGames':
 						console.log('games received ',json);
-						//TODO: add event functionality   /// Event.publish("gamesReceived",json.data);
 					break;
-					case 'clientJoined':
-						console.log('publish event now',ev)
-						ev.pub('socket.onClientJoined',json.data);
-						  //when succesfully joined game 
+					case 'receivePlayers':
+						ev.pub('socket.onReceivePlayers',json.data);
+					break;
+					case 'selfJoined':
+						ev.pub('socket.onSelfJoined',json.data);
 					break;
 					case  'playerUpdates':
 						  ///all player movement updates here

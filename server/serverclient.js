@@ -2,13 +2,17 @@ ServerClient = function(server,socket)
 {
 	var socket = socket;
 	var server = server;
-	var activeGame = null;
+	var game = null;
 	var name = null;
+	var id = null;
 	var positionSequence = 0;
 	
 	var init = function()
 	{
 		registerEvents();
+		
+		//TODO create timeout loop to detect broken connections
+		//if client doesnt reply on interval ping, server should remove client and notify other clients 
 	}
 	
 	var self = this;
@@ -35,7 +39,7 @@ ServerClient = function(server,socket)
 	
 	var processMessage = function(message)
 	{
-		console.log('process message',message);
+		//console.log('process message',message);
 		try
 		{
 			var json = JSON.parse(message);
@@ -56,31 +60,39 @@ ServerClient = function(server,socket)
 		switch (command)
 		{
 			case "join":
+				
+				var player = {};
+				player.cid = self.cid;
+				player.name = "test2";
+							
+				self.game.addPlayer(player);
+				
+				//send data to yourself
 				var packed = {};
-				packed.command = "clientJoined";
-				packed.data = {'clientId':self.cid+"", 
-							   'clients':server.getClientIds()
+				packed.command = "selfJoined";
+				packed.data = {'player':player};
+				
+				self.sendData(packed)
+							
+				//send data to all clients
+				var packed = {};
+				packed.command = "receivePlayers";
+				packed.data = {'players':self.game.getPlayers(),'update':false
 				};
+			
+				server.notifyClients(packed,this);
 				
-				
-				
-				console.log('id',self.cid)
-				server.notifyClients(packed,this);				
 				break;
-			case "positionUpdated":
+			case "playerPositionUpdate":
 				
-				if(data.positionSequence < self.positionSequence)
-				{
-					return;
-				}
+				self.game.updatePlayer(data.player);
 				
 				var packed = {};
-				packed.command = "PositionUpdated";
-				packed.data = {
-								'clientId':self.cid+"",
-								"position":{x:data.x,y:data.y}
-							  };
-				server.notifyClients(packed,this);				
+				packed.command = "receivePlayers";
+				packed.data = {'players':self.game.getPlayers(),'update':true
+				};
+			
+				server.notifyClients(packed,this);			
 				break;				
 			case "test":
 				var packed = {};
