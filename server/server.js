@@ -8,13 +8,37 @@ function Main()
 	var clients = []; //all clients
 	this.cid = 1;
 	
-	this.notifyClients = function(data,sender)
+	this.notifyClients = function(data,sender,ignoreList)
 	{
-		for (var i =0,l = clients.length; i < l; i++)
-		{
+		for (var i =0,l = clients.length; i < l; i++){
+			
+			if (ignoreList){
+				var ignore = false;
+				
+				for (var j=0,jlen=ignoreList.length;j<jlen;j++){
+					if (clients.indexOf(ignoreList[j])){
+						ignore = true;
+					}
+				}
+				
+			}
+			
+			if (ignore){
+				continue;
+			}
+			
 			clients[i].sendData({'command':data.command,"data":data.data});
 		}
 	};
+	
+	this.removeClient = function(client)
+	{
+		ci = clients.indexOf(ci);
+		if (ci != -1)
+		{
+			clients.splice(ci,1);
+		}
+	}
 		
 	this.init =  function()
 	{
@@ -23,9 +47,11 @@ function Main()
 		var WebSocketServer = require('ws').Server;
 		this.wss = new WebSocketServer({port:config.port,host:config.host});
 	
-		//create game
-		var game = new Game();
+		console.log('starting game');
+		var game = new Game(this);
 		game.generateMaze();
+		game.start();
+		console.log('game started');
 		var self = this;
 		
 		this.wss.on('connection', function(ws) {

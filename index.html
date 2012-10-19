@@ -86,6 +86,7 @@ ev.sub('socket.onReceivePlayers',function(e){
 ev.sub('socket.onSelfJoined',function(e){
 	console.log('SOCKET -> on self joined',e)
 	window.game.setPlayer(e.player);
+	//window.game.setOpponents(e.players);
 	window.game.setMaze(e.maze);
 	window.game.start();
 	

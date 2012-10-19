@@ -85,7 +85,7 @@ main = function(player)
 		
 		var direction;
 		
-		if (new Date().getTime() - now > 100)
+		if (new Date().getTime() - now > 40)
 		{	
 			direction = readInput();
 						
@@ -225,7 +225,17 @@ main = function(player)
 		for (i = 0, len=opponents.length; i < len; i++)
 		{
 			var p = opponents[i];
-			c.fillStyle = p.color; 
+		
+			if (p.cid == player.cid)
+			{
+				p = player;
+				c.fillStyle = '#00A3FF';
+			}
+			else
+			{
+				c.fillStyle = p.color;
+			}
+			 
 			c.beginPath();
 			c.arc(p.x, p.y, playerGraphic.w, 0, Math.PI*2, true); 
 			c.closePath();

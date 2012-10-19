@@ -72,28 +72,21 @@ ServerClient = function(server,socket)
 				packed.command = "selfJoined";
 				packed.data = {'player':player,"maze":self.game.getMaze()};
 				
-				self.sendData(packed)
-							
-				//send data to all clients
+				self.sendData(packed);
+				
 				var packed = {};
 				packed.command = "receivePlayers";
-				packed.data = {'players':self.game.getPlayers(),'update':false
+				packed.data = {'players':self.game.getPlayers(),'update':true
 				};
-			
+				
 				server.notifyClients(packed,this);
+				
 				
 				break;
 			case "playerPositionUpdate":
 				
 				self.game.updatePlayer(data.player);
-				 
-				var packed = {};
-				packed.command = "receivePlayers";
-				packed.data = {'players':self.game.getPlayers(),'update':true
-				};
-			
-				server.notifyClients(packed,this);			
-				break;				
+
 			case "test":
 				var packed = {};
 				packed.command = "test";
@@ -156,8 +149,7 @@ ServerClient = function(server,socket)
 		}
 		catch(e)
 		{
-			//TODO
-			console.log('ik ben weg',e);
+			server.removeClient
 		}
 	};
 	
