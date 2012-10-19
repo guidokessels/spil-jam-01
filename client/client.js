@@ -47,6 +47,9 @@ function Client(host, port)
 			 {
 				switch (json.command)
 				{
+					case  'pong':
+						ev.pub('socket.pong',json.data);
+					break;
 					case 'mazeCreated':
 				    MazeGenerator.maze = json.data.maze;
 				    MazeGenerator.render('#container');

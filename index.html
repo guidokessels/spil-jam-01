@@ -17,6 +17,8 @@
 </head>
 <body style="margin:0; padding:0;">
 
+	<div style="color:red;font-size:30px;float:right;" id="ping"></div>
+
 	<div style="margin:auto;width:420px;height:420px;margin-top:20px;border:4px solid #444444;border-radius:5px;">
 		<div style="width:100%;height:100%;box-sizing: border-box;">
 			<div style="box-sizing: border-box;padding:10px;">
@@ -113,6 +115,34 @@ wsclient.getSocket().onopen = function(e){
   		
 	console.log('server connection established');
 	window.game = new main();  
+	
+	locked = false;
+	
+	ev.sub('socket.pong',function(e){
+			document.getElementById('ping').innerHTML = 'ping: '+(new Date().getTime() - e.date)+' ms';
+			locked = false;
+	});
+	
+	var id = 0;
+	var loop = function()
+	{
+		setTimeout(function(){
+		
+			if (!locked)
+			{
+				wsclient.send('ping',{'d':new Date().getTime(),'id':id});
+				locked = true;
+			}
+			loop();
+		},1000)
+		
+		id++;
+		id%=10000
+	}
+	
+	loop();
+	
+	
 };
         
 wsclient.getSocket().onclose = function(e) {

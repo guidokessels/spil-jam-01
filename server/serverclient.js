@@ -59,6 +59,13 @@ ServerClient = function(server,socket)
 		
 		switch (command)
 		{
+			case "ping":
+				var packed = {};
+				packed.command = "pong";
+				packed.data = {'date':data.d};
+				
+				self.sendData(packed);			
+			break;
 			case "join":
 				
 				var player = {};
@@ -86,7 +93,7 @@ ServerClient = function(server,socket)
 			case "playerPositionUpdate":
 				
 				self.game.updatePlayer(data.player);
-
+				break;
 			case "test":
 				var packed = {};
 				packed.command = "test";
