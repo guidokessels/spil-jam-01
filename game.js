@@ -133,6 +133,7 @@ main = function(player)
 				break;
 		}
 		
+		if (maze[next_cell_y] == undefined || maze[next_cell_y][next_cell_x] == undefined) return false;
 		next_cell = maze[next_cell_y][next_cell_x];
 		current_cell = maze[cell_y][cell_x];
 		
