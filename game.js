@@ -13,7 +13,14 @@ main = function(player)
 	var players = [];
 	var player = null;
 	var opponents = [];
+	var cellWidth = 20;
+	var cellHeight = 20;
 	
+	this.setMaze = function(m){
+		console.log('set maze ',m)
+		maze = m
+	}
+	 
 	this.setPlayer = function(p){
 		console.log('add player ',p.cid);
 		player = p;
@@ -36,9 +43,19 @@ main = function(player)
 		}
 	}
 	
-	initMaze = function()
-	{
-		maze = MazeGenerator.generate( 20,20 );
+	/**
+	 * starts the game assuming maze and players are known
+	 */
+	this.start = function(){
+		
+		console.log('start game')
+		
+		if (maze){
+			console.log('render maze')
+			drawMaze();
+		}
+		registerEvents();
+		gameloop();		
 	}
 	
 	registerEvents = function()
@@ -63,7 +80,7 @@ main = function(player)
 	
 	gameloop = function()
 	{	
-		c.fillStyle = "rgba(255, 255, 255, 0.3)";  
+		c.fillStyle = "rgba(255, 255, 255, 1)";  
 		c.fillRect (0, 0, canvas.width, canvas.height);
 		
 		var direction;
@@ -72,14 +89,14 @@ main = function(player)
 		{	
 			direction = readInput();
 						
-			//if( checkCollision(direction) ) {
+			if( checkCollision(direction) ) {
 				movePlayer(direction);
 			
 				if (direction)
 				{
 					ev.pub('game.onPlayerPositionUpdate',player);
 				}
-			//}
+			}
 			now = +new Date();
 		}
 		
@@ -168,6 +185,38 @@ main = function(player)
 		
 		return direction;
 	}
+	 
+
+	playerGraphic = {w:cellWidth/2,h:cellHeight/2};
+	
+	
+	drawMaze = function()
+	{
+        var container = document.getElementById("container"),
+        height    = 20,
+        width     = 20,
+        render    = '',
+        cell_height = 20,
+        cell_width  = 20;
+
+    if (!container) {
+        throw "DOM Element with id '" + element_id + "' not found!";
+    }
+
+    console.log('render ',maze)
+    for(var i = 0; i < height; i++) {
+        for(var j = 0; j < width; j++) {
+            render += '<div class="cell open-' 
+	    + maze[i][j] + '" style="top: ' 
+	    + (i*cell_height) + 'px; left: ' 
+	    + (j*cell_width) + 'px; height: ' 
+	    + cell_height + 'px; width: ' 
+	    + cell_width + 'px"></div>';
+        }
+    }
+
+    container.innerHTML = render;
+	}
 	
 	drawPlayers = function()
 	{
@@ -182,17 +231,4 @@ main = function(player)
 			c.fill();		
 		}
 	}
-	
-	applyInput = function()
-	{
-	
-	}
-	
-	initMaze();
-	registerEvents();
-	gameloop();
-
-    this.getMaze = function() {
-	return maze;
-    }
 }

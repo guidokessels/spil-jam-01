@@ -72,7 +72,7 @@
 
         this.maze = generateMazeUsingBinaryTree( width, height );
 
-        this.render('#container');
+       // this.render('#container');
 
         // Return array with maze data
         return this.maze;

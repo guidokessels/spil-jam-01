@@ -28,7 +28,7 @@ ServerClient = function(server,socket)
 		 });
 	
 		 socket.on('message', function(message) {
-			 console.log('process message',message);
+			 console.log(self.cid,'processing incoming message',message);
 			 processMessage(message);
 	   	 });
 		 
@@ -70,7 +70,7 @@ ServerClient = function(server,socket)
 				//send data to yourself
 				var packed = {};
 				packed.command = "selfJoined";
-				packed.data = {'player':player};
+				packed.data = {'player':player,"maze":self.game.getMaze()};
 				
 				self.sendData(packed)
 							
@@ -86,7 +86,7 @@ ServerClient = function(server,socket)
 			case "playerPositionUpdate":
 				
 				self.game.updatePlayer(data.player);
-				
+				 
 				var packed = {};
 				packed.command = "receivePlayers";
 				packed.data = {'players':self.game.getPlayers(),'update':true

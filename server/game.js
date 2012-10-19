@@ -1,25 +1,26 @@
-require('../maze-growing-tree.js');
+require('./mazeGenerator.js');
 
 Game = function()
 {
 	var maze;
 	var players = [];
-	
-	
-	function init(){
-		generateMaze();
-	}
-	
-	function generateMaze()
+
+	this.generateMaze = function()
 	{
-		maze = Maze.generateMaze(30,30);
+		maze = Maze.generate( 20,20 );
+		console.log('maze generated')
+		return maze;
 	}
 	
+	this.getMaze = function(){
+		return maze;
+	}
+	 
 	this.addPlayer = function(c)
 	{
-		c.x = 100;
+		c.x = 10;
 		c.color = "650000";
-		c.y = 100;
+		c.y = 10;
 		players.push(c);
 	}
 	
@@ -48,6 +49,4 @@ Game = function()
 	
 	
 	}
-
-	init();
 }
